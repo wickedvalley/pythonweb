@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+</head>
+<body>
+
+        仅仅测试环境
+        <img src="/static/images/1.jpg" style="width: 50px;height: 50px;">
+
+        <form action="/index.action" method="post">
+            用户名：<input type="text" name="username">
+            <input type="submit" value="提交">
+        </form>
+
+        {% for item in data %}
+                <span>{{item.0}},{{item.1}},{{item.2}}</span><br>
+        {% endfor %}
+</body>
+</html>

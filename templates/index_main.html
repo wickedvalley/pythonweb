@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>主页</title>
+	<!-- Bootstrap Styles-->
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FontAwesome Styles-->
+    <link href="/static/assets/css/font-awesome.css" rel="stylesheet" />
+     <!-- Morris Chart Styles-->
+
+        <!-- Custom Styles-->
+    <link href="/static/assets/css/custom-styles.css" rel="stylesheet" />
+     <!-- Google Fonts-->
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+     <!-- TABLE STYLES-->
+    <link href="/static/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <script type="javascript">
+        function shows() {
+            alert("lll")
+        }
+    </script>
+
+    <style type="text/css">
+    .easypiechartMy {
+		    position: relative;
+		    text-align: center;
+		    width: 100%;
+		    height: 100%;
+		    margin: -2px auto 10px auto;
+	}
+
+
+
+	#page-wrapper {
+	    margin: 0 0 0 0px;
+	    padding: 0;
+	    min-height: 1200px;
+	}
+
+	body {
+    font-family: 'Open Sans', sans-serif;
+    background: white;
+	}
+
+    </style>
+
+    <script>
+        function showMessage() {
+            alert("登陆后可预定酒店！")
+        }
+
+    </script>
+</head>
+<body onload="shows()">
+    <div id="wrapper">
+    	<div style="text-align: center;margin-top: 30px;font-size: 30px">
+    	    随心行——酒店预定主页
+    	  <span style="float: right;font-size: 20px"><a href="/login_ui.action">登陆</a></span>
+    	  <span style="float: right;font-size: 20px;margin-right: 2%"><a href="/registry_ui.action">注册</a></span>
+    	</div>
+
+        <!--/. NAV TOP  -->
+
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+
+
+            <div id="page-inner">
+				<form role="form" method="POST" action="/index_search.action">
+                          <div class="form-group" style="height: 50px">
+                             <input class="form-control" name="key_words" style="width: 30%;text-align: center;margin-left: 30%;float: left" placeholder="关键字模糊查询"/>
+                          	 <button type="submit" class="btn btn-default" style="float: left;background-color: #A0522D;color: white;">查询</button>
+                          </div>
+                </form>
+
+
+                <!--后台数据-->
+                <div class="row">
+                    {% for item in data %}
+					<div class="col-xs-6 col-md-3">
+						<div class="panel panel-default" style="height:320px">
+							<div class="panel-body easypiechart-panel">
+								<a href="#" onclick="showMessage()">
+									<img alt="" src="/static/images/{{item.hotel_pic}}" class="easypiechartMy">
+								</a>
+							</div>
+							<div style="text-align: center;font-size: 20px;margin-top: -15px">
+								<span >{{item.hotel_name}}</span>
+							</div>
+							<div style="text-align: center;font-size: 15px;">
+								<span style="float: left;margin-left: 8%">
+								评价：
+								<img alt="" src="/static/images/star_on.png" style="height:31px;width:31px">
+								<img alt="" src="/static/images/star_on.png" style="height:31px;width:31px">
+								<img alt="" src="/static/images/star_on.png" style="height:31px;width:31px">
+								<img alt="" src="/static/images/star_on.png" style="height:31px;width:31px">
+								<img alt="" src="/static/images/star_off.png" style="height:31px;width:31px">
+								({{ item.comments_num }})
+								</span>
+							</div>
+						</div>
+					</div>
+                    {% endfor %}
+
+            </div>
+
+
+        	</div>
+               <footer><p>Copyright 2018</p></footer>
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+      <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable();
+            });
+    </script>
+         <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>主页</title>
+	<!-- Bootstrap Styles-->
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FontAwesome Styles-->
+    <link href="/static/assets/css/font-awesome.css" rel="stylesheet" />
+     <!-- Morris Chart Styles-->
+
+        <!-- Custom Styles-->
+    <link href="/static/assets/css/custom-styles.css" rel="stylesheet" />
+     <!-- Google Fonts-->
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+     <!-- TABLE STYLES-->
+    <link href="/static/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <style type="text/css">
+	    .image1{
+	        margin-top: 0px;
+	        width:50px;
+	        height:50px;
+	        border-radius:30px;
+	    }
+    </style>
+    
+    <script>
+        function submit_comment() {
+            var form = document.getElementById('add_comment');
+            form.submit();
+        }
+        
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/getNewsList.action" style="font-size: 18px">酒店管理评价系统</a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li class="divider"></li>
+                        <li><a href="/logout.action" onclick=""><i class="fa fa-sign-out fa-fw"></i>注销</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    <li>
+                        <a href="/home.action"><i class="fa fa-table"></i> 个人管理</a>
+                    </li>
+
+                    <li>
+                        <a href="/my_order.action"><i class="fa fa-table"></i> 我的订单</a>
+                    </li>
+
+                    <!--
+                    <li>
+                        <a href="${pageContext.request.contextPath}/toHotel.action"><i class="fa fa-table"></i> 酒店管理</a>
+                    </li>
+                    -->
+                    <li>
+                        <a href="/home_main.action" class="active-menu"><i class="fa fa-fw fa-file"></i>酒店预定</a>
+                    </li>
+
+                    <li>
+                        <a href="/password_ui.action"><i class="fa fa-fw fa-file"></i>修改密码</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+		  <div class="header">
+                        <h1 class="page-header">
+                            <small>酒店展示</small>
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">主页</a></li>
+					  <li><a href="#">酒店</a></li>
+					  <li class="active">详情</li>
+					</ol>
+
+		</div>
+
+            <div id="page-inner">
+					 <div class="row" style="height: 350px">
+							<div style="height:350px;width: 55%;float: left;">
+								<img alt="" src="/static/images/{{data.0.hotel_pic}}" style="height:350px;width: 100%">
+							</div>
+							<div style="height:350px;width: 40%;float: left;">
+								<div style="font-size: 30px;margin-left: 16%">
+									{{data.0.hotel_name}}
+								</div>
+
+								<div style="font-size: 24px;margin-left: 16%;margin-top: 5%">
+									地址：{{data.0.address}}
+								</div>
+
+								<div style="font-size: 24px;margin-left: 16%;margin-top: 5%">
+									开业时间：{{data.0.build_time}}
+								</div>
+
+								<div style="font-size: 24px;margin-left: 16%;margin-top: 5%">
+									酒店预定：<a data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-lg" role="button"  href="javaScript:history.go(-1)">我要预定</a>
+								</div>
+
+								<div style="text-align: center;font-size: 24px;margin-left: 16%;margin-top: 3%">
+									<span style="float: left;margin-left: 0px">
+									评价：
+									<img alt="" src="/static/images/star_on.png" style="height:31px;width:31px">
+									<img alt="" src="/static/images/star_on.png" style="height:31px;width:31px">
+									<img alt="" src="/static/images/star_on.png" style="height:31px;width:31px">
+									<img alt="" src="/static/images/star_on.png" style="height:31px;width:31px">
+									<img alt="" src="/static/images/star_off.png" style="height:31px;width:31px">
+									({{data.0.comments_num}})
+									</span>
+								</div>
+
+
+							</div>
+
+			  		</div>
+
+			  		<!-- 评价列表 -->
+
+					  <div class="row">
+
+		                    <div class="panel panel-default">
+		                        <div class="panel-heading">
+		                            	用户评价({{ commentCount }})
+		                        </div>
+
+                          <!--获取评论-->
+                          {% for item in commentList %}
+                          <div class="panel-body">
+		                            <div class="panel-group" id="accordion">
+		                                <div class="panel panel-default">
+		                                    <div class="panel-heading">
+		                                        <h4 class="panel-title">
+		                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><img alt="" src="/static/images/18143441.jpg" class="image1">{{item.real_name}}</a>
+		                                        </h4>
+		                                    </div>
+		                                    <div id="collapseTwo" class="panel-collapse in" style="height: auto;">
+		                                        <div class="panel-body">
+		                                            {{item.comments_content}}
+		                                        </div>
+                                                <div class="panel-body">
+		                                            酒店评分：{{item.comments_score}}分
+		                                        </div>
+		                                        <div class="panel-body">
+		                                          	时间:{{item.comments_time}}
+		                                        </div>
+		                                    </div>
+		                                </div>
+
+		                            </div>
+                          </div>
+                          {% endfor %}
+
+		            </div>
+
+		            <div class="row" style="padding: 1.5%">
+
+                           <form role="form" id="add_comment" action="/add_comment.action" method="post">
+                                <div class="form-group" style="text-align: left">
+                                      <input type="hidden" name="house_id" value="{{data.0.id}}">
+                                      <label>我想评价</label>
+                                      <textarea class="form-control" name="comments_content" rows="6"  placeholder="优质的评价将会优先显示" autofocus>
+                                      </textarea>
+                                </div>
+                                <div class="form-group" style="text-align: left">
+                                      <label>酒店评分：</label>
+                                      <input type="radio" name="comments_score" checked="checked" value="1"><span style="color:black;">1分</span>
+			                        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <input type="radio" name="comments_score" value="2"><span style="color:black;">2分</span>
+                                    			                        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <input type="radio" name="comments_score" value="3"><span style="color:black;">3分</span>
+                                    			                        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <input type="radio" name="comments_score" value="4"><span style="color:black;">4分</span>
+                                    			                        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <input type="radio" name="comments_score" value="5"><span style="color:black;">5分</span>
+                                </div>
+                           </form>
+
+		            </div>
+
+		            <div class="row" style="padding-right: 1.5%">
+                           <form role="form">
+                                <div class="form-group" style="float: right;">
+										<a class="btn btn-primary btn-lg" role="button"  onclick="submit_comment()" href="javaScript:history.go(-1)">发布</a>
+                                </div>
+                           </form>
+		            </div>
+
+
+                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="/book_hotel.action" method="post">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">预定酒店</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="collapseTwo" class="panel-collapse in" style="height: auto;">
+                                                    <input type="hidden" name="house_id" value="{{data.0.id}}">
+                                                    <div class="panel-body">
+                                                            酒店信息：<input type="text" value="{{ orderDetails.hotel_name }}" style="border: 0px;outline:none;">
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        入住时间：<input name="enter_time" type="text" value="{{ from }}" style="border: 0px;outline:none;"> 至 &nbsp;&nbsp; &nbsp;<input name="leave_time" type="text" value="{{ to }}" style="border: 0px;outline:none;">
+                                                    </div>
+                                                    <div class="panel-body">
+                                                            酒店价格：<input type="text" value="{{ orderDetails.price }}" style="border: 0px;outline:none;">
+                                                    </div>
+                                                    <div class="panel-body">
+                                                            预订人：<input type="text" value="{{ orderDetails.real_name }}" style="border: 0px;outline:none;">
+                                                    </div>
+                                                    <div class="panel-body">
+                                                            联系电话：<input type="text" value="{{ orderDetails.phone }}" style="border: 0px;outline:none;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                <button type="submit" class="btn btn-primary">确定</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                     </div>
+
+           </div>
+               <footer><p>Copyright 2018</p></footer>
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="/static/assets/js/jquery-1.10.2.js"></script>
+      <!-- Bootstrap Js -->
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="/static/assets/js/jquery.metisMenu.js"></script>
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="/static/assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/assets/js/dataTables/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable();
+            });
+    </script>
+         <!-- Custom Js -->
+    <script src="/static/assets/js/custom-scripts.js"></script>
+
+
+</body>
+</html>
